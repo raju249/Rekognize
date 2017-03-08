@@ -20,6 +20,11 @@ This information will be in turn used by Raspberry PI for saying a welcome messa
 
 PI has a camera and speaker attached to it. Camera is used for clicking live image every 15 seconds and is sent to Server. Server then does the procecssing by calling AWS Rekognition APIs and sends a json response to PI to process along with an audio file to play.
 
+#### Development Credits
+
+* @ajay1011
+* @raju249
+
 #### Installation Instructions
 
 * Project is in development phase, coming soon Stay tuned :)
