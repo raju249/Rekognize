@@ -21,14 +21,28 @@ def search_face():
 
 		# Load the data sent in the request as json
 		data = json.loads(request.data)
+
+		# Read the image bytes is the json data
 		imageBytes = data['image']
+
+		# Search for the face from a given collection_id and above image bytes
 		meta_data = search_faces_in_collection(collection_id, imageBytes)
+
+		# Search for the name from the data received above
 		name = get_name(meta_data, session)
+
+		# Best practice to clode the current session
+		session.close()
+		
+		# Create the appropriate audio file that is sent to PI
 		build_audio(name)
+
+		# Send the file to PI
 		return send_file(
 				'Audio/greeting.mp3',
 				mimetype = 'audio/mp3',
 				as_attachment = True,
 				attachment_filename = "greeting.mp3")
 	else:
+		# Handle errored cases
 		return jsonify({"status" : "Error"})

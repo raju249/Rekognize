@@ -9,7 +9,7 @@ class Mapping(Base):
 	__tablename__ = 'mapping'
 
 	id = Column(Integer, primary_key = True)
-    name = Column(String(250), unique = False, nullable = False)
+	name = Column(String(250), unique = False, nullable = False)
 	face_id = Column(String(1000), unique = True, nullable = False)
 
 
