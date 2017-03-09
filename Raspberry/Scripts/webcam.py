@@ -19,7 +19,7 @@ class WebCam():
 		#TODO -- Write code to click image by reading instructions on above website
 		# Look for __init__ method on how to call a subprocess.
 		# Return the file path
-
+		
 
 	# This method convert image to bytes since AWS only accepts base64 encoded image data for rekognition
 	# Credits -- http://stackoverflow.com/questions/3715493/encoding-an-image-file-with-base64
