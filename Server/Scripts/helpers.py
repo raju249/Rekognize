@@ -1,6 +1,7 @@
 import boto3
 import os
 from contextlib import closing
+from Model.database_setup import Mapping
 
 rekognition_client = boto3.client('rekognition')
 polly_client = boto3.client('polly')
@@ -14,7 +15,7 @@ def search_faces_in_collection(collection_id, imageBytes):
 		)
 	return response['FaceMatches'][0]['Face']
 
-def search_name(name):
+def build_audio(name):
 	try:
 		response = polly_client.synthesize_speech(
 				OutputFormat = 'mp3',
@@ -43,5 +44,9 @@ def search_name(name):
 	except Exception as e:
 		raise e
 
-def get_name(data):
-	
+def get_name(data, session):
+	face_id = data['FaceId']
+	image = session.query(Mapping).filter_by(face_id = face_id).first()
+	if image is not None:
+		return str(image.name)
+	return None
