@@ -2,7 +2,7 @@
 import boto3
 import os
 from contextlib import closing
-from Model.database_setup import Mapping
+from Server.Model.database_setup import Mapping
 
 # Reference for AWS client from boto
 rekognition_client = boto3.client('rekognition')
@@ -64,3 +64,20 @@ def get_name(data, session):
 	if image is not None:
 		return str(image.name)
 	return None
+
+def index_face(collection_id, image_bytes):
+	response = rekognition_client.index_faces(
+				CollectionId = collection_id,
+				Image = {
+					'Bytes' : image_bytes
+				}
+			)
+	return response['FaceRecords'][0]['Face']['FaceId']
+
+def create_collection(name):
+	response = rekognition_client.create_collection(
+				CollectionId = name
+			)
+	if response['StatusCode'] == 200:
+		return True
+	return False

@@ -4,20 +4,24 @@ from flask import request, jsonify, send_file
 # To read the json data sent in the request
 import json
 
+# get the collection id from add_image file
+from add_image import COLLECTION_NAME
+
 # Importing the helper functions to interaact with AWS.
-from Scripts.helpers import *
+from Server.Scripts.helpers import *
 
 # Database connection to access the face_id and name mapping in sqlite file
-from Model.database_setup import DBSession
+from Server.Model.database_setup import DBSession
 
+# Import common session
+from add_image import session
 # A view that returns the audio file for the requested image
 def search_face():
 
+	# set it to collection_id
+	collection_id = COLLECTION_NAME
 	# Check if the request is POST and not GET, PUT or any other
 	if request.method == "POST":
-
-		# Open a session connection to database
-		session = DBSession()
 
 		# Load the data sent in the request as json
 		data = json.loads(request.data)
@@ -31,9 +35,6 @@ def search_face():
 		# Search for the name from the data received above
 		name = get_name(meta_data, session)
 
-		# Best practice to clode the current session
-		session.close()
-		
 		# Create the appropriate audio file that is sent to PI
 		build_audio(name)
 
