@@ -1,3 +1,5 @@
+# We use the SQLAlchey object relational mapper for ORM.
+# Below are the libs that we normally import to setup using the database using SQLAlchemy
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
