@@ -15,7 +15,8 @@ class Mapping(Base):
 	face_id = Column(String(1000), unique = True, nullable = False)
 
 
-engine = create_engine("sqlite:///mapping.db")
+# Pass the database file path here.
+engine = create_engine("sqlite:///D:\\Rekognize\\mapping.db")
 Base.metadata.create_all(engine)
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind = engine)

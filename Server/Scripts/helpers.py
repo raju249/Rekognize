@@ -75,9 +75,20 @@ def index_face(collection_id, image_bytes):
 	return response['FaceRecords'][0]['Face']['FaceId']
 
 def create_collection(name):
-	response = rekognition_client.create_collection(
+	try:
+		response = rekognition_client.create_collection(
 				CollectionId = name
 			)
-	if response['StatusCode'] == 200:
-		return True
-	return False
+		if response['StatusCode'] == 200:
+			return True
+		return False
+	except Exception as e:
+		return False
+
+def delete_collection(name):
+	try:
+		response = rekognition_client.delete_collection(
+				CollectionId = name
+			)
+	except Exception as e:
+		print str(e)

@@ -11,10 +11,11 @@ from add_image import COLLECTION_NAME
 from Server.Scripts.helpers import *
 
 # Database connection to access the face_id and name mapping in sqlite file
-from Server.Model.database_setup import DBSession
+from Server.Model.database_setup import DBSession, Mapping
 
 # Import common session
 from add_image import session
+
 # A view that returns the audio file for the requested image
 def search_face():
 

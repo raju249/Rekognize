@@ -28,5 +28,4 @@ class WebCam():
 		encoded_data = None
 		with open(file_path, 'rb') as image:
 			data = image.read()
-			encoded_data = data.encode("base64")
-		return encoded_data
+		return data
