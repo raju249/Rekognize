@@ -74,6 +74,7 @@ def index_face(collection_id, image_bytes):
 			)
 	return response['FaceRecords'][0]['Face']['FaceId']
 
+# Create a collection with given name
 def create_collection(name):
 	try:
 		response = rekognition_client.create_collection(
@@ -85,8 +86,11 @@ def create_collection(name):
 	except Exception as e:
 		return False
 
+# Delete the collection with given name
 def delete_collection(name):
 	try:
+		# Call the  AWS API and delete the collection.
+		# Is as simple as it looks
 		response = rekognition_client.delete_collection(
 				CollectionId = name
 			)
