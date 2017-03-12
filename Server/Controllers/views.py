@@ -35,7 +35,7 @@ def search_face():
 
 		# Search for the name from the data received above
 		name = get_name(meta_data, session)
-
+		print name
 		# Create the appropriate audio file that is sent to PI
 		build_audio(name)
 
