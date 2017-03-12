@@ -24,7 +24,6 @@ class WebCam():
 	# Credits -- http://stackoverflow.com/questions/3715493/encoding-an-image-file-with-base64
 	# After clicking the image the ClickImage return filepath which is passed here to this method in main application.py file
 	def convertImageToBytes(self):
-		encoded_data = None
 		with open('/home/pi/testimage.jpg', 'rb') as image:
 			data = image.read()
 		return data
