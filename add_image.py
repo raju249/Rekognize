@@ -3,6 +3,7 @@ from Server.Scripts.helpers import index_face,create_collection,delete_collectio
 from Server.Model.database_setup import DBSession, Mapping
 import os
 
+from config import IMAGE_PATH
 # Collection name for image metadata collection on AWS.
 COLLECTION_NAME = "RASPBERRY"
 
@@ -21,7 +22,7 @@ if __name__ == '__main__':
 		print "Collection exists already, using that...."
 
 	# Pass the image file path here when adding the image. Make sure you rename the image file as test
-	with open('D:\\Rajendra\\Pictures\\Camera Roll\\test.jpg', 'rb') as image:
+	with open(IMAGE_PATH, 'rb') as image:
 		# Read the image bytes
 		data = image.read()
 	# Hold the face_id returned from AWS via this function
@@ -47,7 +48,7 @@ if __name__ == '__main__':
 
 	# Delete the image from server
 	print "Deleting image from local store..."
-	os.remove('D:\\Rajendra\\Pictures\\Camera Roll\\test.jpg')
+	os.remove(IMAGE_PATH)
 
 	# Print confirmation
 	print "Face indexed"
