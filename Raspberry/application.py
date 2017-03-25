@@ -53,6 +53,6 @@ if __name__ == '__main__':
 			print "Sleeping for 10 seconds.."
 			time.sleep(10)
 		except Exception as e:
-			print str(e)
+			pass
 
 

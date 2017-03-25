@@ -31,7 +31,7 @@ def build_audio(name):
 	try:
 		response = polly_client.synthesize_speech(
 				OutputFormat = 'mp3',
-				Text = 'Hello ' + str(name) + ' How are you doing ?',
+				Text = 'Hello ' + str(name) + ' How are you?',
 				VoiceId = 'Raveena'
 			)
 		# Access the audio stream from the response
@@ -60,13 +60,16 @@ def build_audio(name):
 # Searches the database for matching face_id in data variable
 def get_name(data, session):
 	# get the face id from the data dictionary passed. This data var refers to dict returned by search_faces_in_collection method.
-	face_id = data['FaceId']
-	# Search it in database using the passed session object.
-	image = session.query(Mapping).filter_by(face_id = face_id).first()
-	# sanity check for seeing if we have no mathcing person
-	if image is not None:
-		return str(image.name)
-	return None
+	try:
+		face_id = data['FaceId']
+		# Search it in database using the passed session object.
+		image = session.query(Mapping).filter_by(face_id = face_id).first()
+		# sanity check for seeing if we have no mathcing person
+		if image is not None:
+			return str(image.name)
+		return None
+	except Exception as e:
+		pass
 
 def index_face(collection_id, image_bytes):
 	response = rekognition_client.index_faces(
