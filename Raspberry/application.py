@@ -36,7 +36,7 @@ def main():
 	data = click_image_and_convert()
 
 	# Convert it into json
-	data = json.dumps(data)
+	data = json.dumps({'image' : data.encode('base64')})
 
 	# Send the data to server and get the audio and play it.
 	send_image_data_and_play_audio(SERVER_URL, data)
@@ -48,7 +48,8 @@ if __name__ == '__main__':
 
 	# Call it forever with 10 second sleep
 	while True:
-		time.sleep(10)
 		main()
+		print "Sleeping for 10 seconds.."
+		time.sleep(10)
 
 

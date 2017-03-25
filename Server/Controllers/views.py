@@ -28,7 +28,7 @@ def search_face():
 		data = json.loads(request.data)
 
 		# Read the image bytes is the json data
-		imageBytes = data['image']
+		imageBytes = data['image'].decode('base64')
 
 		# Search for the face from a given collection_id and above image bytes
 		meta_data = search_faces_in_collection(collection_id, imageBytes)
