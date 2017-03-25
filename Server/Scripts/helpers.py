@@ -11,17 +11,20 @@ polly_client = boto3.client('polly')
 
 # This method searches for a given image in the collection given by collection id
 def search_faces_in_collection(collection_id, imageBytes):
-	# Get the response from aws using the search_face_by_image from boto3
-	response = rekognition_client.search_faces_by_image(
-		# Specify the collection id
-		CollectionId = collection_id,
-		Image = {
-		# specify the image bytes
-				'Bytes':imageBytes
-			}
-		)
-	# Return the face matches array and not any other data that we don't need.
-	return response['FaceMatches'][0]['Face']
+	try:
+		# Get the response from aws using the search_face_by_image from boto3
+		response = rekognition_client.search_faces_by_image(
+			# Specify the collection id
+			CollectionId = collection_id,
+			Image = {
+			# specify the image bytes
+					'Bytes':imageBytes
+				}
+			)
+		# Return the face matches array and not any other data that we don't need.
+		return response['FaceMatches'][0]['Face']
+	except Exception as e:
+		print str(e)
 
 # This method fetches the audio from polly and saves it in grreting.mp3 file.
 def build_audio(name):
