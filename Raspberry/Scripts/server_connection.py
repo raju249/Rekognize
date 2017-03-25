@@ -11,5 +11,6 @@ def send_image_data_and_play_audio(url, data):
 	with open('test.mp3','wb') as output:
  		output.write(audio_file.read())
  	# Yet to figure out to play data.
+ 	print "Playing audio.."
  	subprocess.call(['omxplayer', '/home/pi/test.mp3'])
 
