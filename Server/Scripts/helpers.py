@@ -24,7 +24,7 @@ def search_faces_in_collection(collection_id, imageBytes):
 		# Return the face matches array and not any other data that we don't need.
 		return response['FaceMatches'][0]['Face']
 	except Exception as e:
-		print str(e)
+		pass
 
 # This method fetches the audio from polly and saves it in grreting.mp3 file.
 def build_audio(name):
