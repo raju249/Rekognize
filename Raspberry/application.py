@@ -48,8 +48,11 @@ if __name__ == '__main__':
 
 	# Call it forever with 10 second sleep
 	while True:
-		main()
-		print "Sleeping for 10 seconds.."
-		time.sleep(10)
+		try:
+			main()
+			print "Sleeping for 10 seconds.."
+			time.sleep(10)
+		except Exception as e:
+			print str(e)
 
 
