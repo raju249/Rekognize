@@ -3,6 +3,7 @@ import boto3
 import os
 from contextlib import closing
 from Server.Model.database_setup import Mapping
+from tempfile import gettempdir
 
 # Reference for AWS client from boto
 rekognition_client = boto3.client('rekognition')
@@ -28,33 +29,65 @@ def search_faces_in_collection(collection_id, imageBytes):
 
 # This method fetches the audio from polly and saves it in grreting.mp3 file.
 def build_audio(name):
-	try:
-		response = polly_client.synthesize_speech(
-				OutputFormat = 'mp3',
-				Text = 'Hello ' + str(name) + ' How are you?',
-				VoiceId = 'Raveena'
-			)
-		# Access the audio stream from the response
-		if "AudioStream" in response:
-		    # Note: Closing the stream is important as the service throttles on the
-		    # number of parallel connections. Here we are using contextlib.closing to
-		    # ensure the close method of the stream object will be called automatically
-		    # at the end of the with statement's scope.
-		    with closing(response["AudioStream"]) as stream:
-		        output = os.path.join("Audio/", "greeting.mp3")
+	if name is not None:
+		try:
+			response = polly_client.synthesize_speech(
+					OutputFormat = 'mp3',
+					Text = 'Hello ' + str(name) + ' How are you?',
+					VoiceId = 'Raveena'
+				)
+			# Access the audio stream from the response
+			if "AudioStream" in response:
+			    # Note: Closing the stream is important as the service throttles on the
+			    # number of parallel connections. Here we are using contextlib.closing to
+			    # ensure the close method of the stream object will be called automatically
+			    # at the end of the with statement's scope.
+			    with closing(response["AudioStream"]) as stream:
+			        output = os.path.join("Audio/", "greeting.mp3")
+			        p = os.path.join(gettempdir(), "greeting.mp3")
 
-		        try:
-		            # Open a file for writing the output as a binary stream
-		            with open(output, "wb") as file:
-		                file.write(stream.read())
-		        except IOError as error:
-		            # Could not write to file, exit gracefully
-		            print str(error)
-		else:
-		    # The response didn't contain audio data, exit gracefully
-		    print "Could not stream audio"
-	except Exception as e:
-		raise e
+			        try:
+			            # Open a file for writing the output as a binary stream
+			            with open(output, "wb") as file:
+			                file.write(stream.read())
+			            #os.startfile(p)
+			        except IOError as error:
+			            # Could not write to file, exit gracefully
+			            print str(error)
+			else:
+			    # The response didn't contain audio data, exit gracefully
+			    print "Could not stream audio"
+		except Exception as e:
+			raise e
+	else:
+		try:
+			response = polly_client.synthesize_speech(
+					OutputFormat = 'mp3',
+					Text = 'There is no one in front of webcam.',
+					VoiceId = 'Raveena'
+				)
+			# Access the audio stream from the response
+			if "AudioStream" in response:
+			    # Note: Closing the stream is important as the service throttles on the
+			    # number of parallel connections. Here we are using contextlib.closing to
+			    # ensure the close method of the stream object will be called automatically
+			    # at the end of the with statement's scope.
+			    with closing(response["AudioStream"]) as stream:
+			        output = os.path.join("Audio/", "greeting.mp3")
+			        p = os.path.join(gettempdir(), "greeting.mp3")		        
+			        try:
+			            # Open a file for writing the output as a binary stream
+			            with open(output, "wb") as file:
+			                file.write(stream.read())
+			            #os.startfile(p)
+			        except IOError as error:
+			            # Could not write to file, exit gracefully
+			            print str(error)
+			else:
+			    # The response didn't contain audio data, exit gracefully
+			    print "Could not stream audio"
+		except Exception as e:
+			raise e
 
 
 # Searches the database for matching face_id in data variable

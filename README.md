@@ -22,7 +22,6 @@ PI has a camera and speaker attached to it. Camera is used for clicking live ima
 
 #### Development Credits
 
-* @ajay1011
 * @raju249 (me)
 
 #### Installation Instructions

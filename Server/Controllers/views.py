@@ -47,4 +47,4 @@ def search_face():
 				attachment_filename = "greeting.mp3")
 	else:
 		# Handle errored cases
-		return jsonify({"status" : "Error"})
+		return "404"
